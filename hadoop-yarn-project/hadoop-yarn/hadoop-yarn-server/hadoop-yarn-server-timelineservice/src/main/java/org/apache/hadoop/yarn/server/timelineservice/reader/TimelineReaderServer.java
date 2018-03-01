@@ -40,7 +40,6 @@ import org.apache.hadoop.yarn.YarnUncaughtExceptionHandler;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
 import org.apache.hadoop.yarn.exceptions.YarnException;
 import org.apache.hadoop.yarn.exceptions.YarnRuntimeException;
-import org.apache.hadoop.yarn.server.timelineservice.reader.security.TimelineReaderAuthenticationFilterInitializer;
 import org.apache.hadoop.yarn.server.timelineservice.reader.security.TimelineReaderWhitelistAuthorizationFilterInitializer;
 import org.apache.hadoop.yarn.server.timelineservice.storage.TimelineReader;
 import org.apache.hadoop.yarn.server.util.timeline.TimelineServerUtils;
@@ -157,11 +156,6 @@ public class TimelineReaderServer extends CompositeService {
     }
     String initializers = conf.get("hadoop.http.filter.initializers", "");
     Set<String> defaultInitializers = new LinkedHashSet<String>();
-    if (!initializers.contains(
-        TimelineReaderAuthenticationFilterInitializer.class.getName())) {
-      defaultInitializers.add(
-          TimelineReaderAuthenticationFilterInitializer.class.getName());
-    }
 
     defaultInitializers.add(
         TimelineReaderWhitelistAuthorizationFilterInitializer.class.getName());
